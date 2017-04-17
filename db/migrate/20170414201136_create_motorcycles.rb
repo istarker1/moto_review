@@ -4,7 +4,8 @@ class CreateMotorcycles < ActiveRecord::Migration[5.0]
       t.string :make, null: false
       t.string :model, null: false
       t.integer :cc
-      t.string :style
+      t.belongs_to :style, index: true
+      t.belongs_to :user, index: true
 
       t.timestamps
     end

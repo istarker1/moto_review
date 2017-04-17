@@ -6,8 +6,10 @@ RSpec.describe Motorcycle, type: :model do
   describe "create motorcycle" do
 
     it "creates a valid motorcycle" do
-      FactoryGirl.build(:motorcycle).should be_valid
-      moto = FactoryGirl.create(:motorcycle)
+      user = FactoryGirl.create(:user)
+      style = FactoryGirl.create(:style)
+      FactoryGirl.build(:motorcycle, user_id: user.id, style_id: style.id).should be_valid
+      moto = FactoryGirl.create(:motorcycle, user_id: user.id, style_id: style.id)
       results  = Motorcycle.all
 
       expect(results).to include(moto)

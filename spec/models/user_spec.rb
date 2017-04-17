@@ -18,5 +18,12 @@ RSpec.describe User, type: :model do
       expect(results).to include(user)
     end
 
+  describe "current user" do
+    it "signs in an already registered user" do
+      user = FactoryGirl.create(:user)
+
+    end
+  end
+
   end
 end

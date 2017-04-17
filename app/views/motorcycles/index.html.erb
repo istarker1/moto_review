@@ -1,1 +1,13 @@
+<%= flash[:notice] %>
 
+<h3>All Motorcycles </h3>
+
+<ul>
+  <% @motorcycles.each do |moto| %>
+    <li><%= link_to "#{moto.make} #{moto.model}", motorcycle_path(moto) %></lI>
+  <%end%>
+</ul>
+<br>
+<% if current_user %>
+  <%= link_to "Add a Motorcycle", new_motorcycle_path %>
+<%end%>

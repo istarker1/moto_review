@@ -1,0 +1,8 @@
+<h3> Edit <%= @motorcycle.make %> <%= @motorcycle.model %> </h3>
+
+<%= render 'if_errors_block' %>
+
+<%= render 'moto_form' %>
+
+<%= link_to 'Cancel Edit', motorcycle_path %><br />
+<%= render 'index_link' %>

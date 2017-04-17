@@ -1,0 +1,11 @@
+<%= flash[:notice] %>
+
+<h3><%= @motorcycle.make%> <%=@motorcycle.model %></h3>
+<h4>CC: <%= @motorcycle.cc %></h4>
+<h4>Style: <%= @motorcycle.type %></h4>
+
+<% if @motorcycle.creator == current_user %>
+  <%= link_to "Edit Motorcycle", edit_motorcycle_path %>
+<% end %><br><br>
+
+<%= render 'index_link' %>
