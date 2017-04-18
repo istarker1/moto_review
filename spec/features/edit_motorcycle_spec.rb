@@ -16,6 +16,12 @@ feature 'edit a motorcycle' do
     expect(page).to have_content("Edit Moto Guzzi V7 Stone")
     expect(page).to have_content("Cancel Edit")
 
+    fill_in 'Model', with: 'V7 Racer'
+    click_button 'Update Motorcycle'
+
+    expect(page).to have_content("Motorcycle Updated!")
+    expect(page).to have_content("Moto Guzzi V7 Racer")
+
   end
 
   scenario 'another user cannot edit a motorcycle' do

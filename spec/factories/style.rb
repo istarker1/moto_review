@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :style do
-    style "Supersport"
+    style "Retro"
   end
 end

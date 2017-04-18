@@ -47,7 +47,7 @@ class MotorcyclesController < ApplicationController
     @motorcycle.style_id = Style.where(style: params[:motorcycle][:style])[0].id
     @motorcycle.user_id = current_user.id
     if @motorcycle.update(motorcycle_params)
-      flash[:notice] = "Motorcycle updated!"
+      flash[:notice] = "Motorcycle Updated!"
       redirect_to @motorcycle
     else
       @errors = @motorcycle.errors.full_messages
@@ -56,11 +56,22 @@ class MotorcyclesController < ApplicationController
     end
   end
 
+  def destroy
+    @motorcycle = Motorcycle.find(params[:id])
+    if correct_user
+      @motorcycle.destroy
+      flash[:notice] = "Motorcycle Deleted"
+      redirect_to motorcycles_path
+    else
+      flash[:notice] = "You are not authorized"
+      redirect_to @motorcycle
+    end
+  end
+
   private
 
   def motorcycle_params
     params.require(:motorcycle).permit(:make, :model, :cc)
   end
-
 
 end
