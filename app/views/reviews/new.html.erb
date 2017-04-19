@@ -1,0 +1,18 @@
+<h2> Review the <%= @motorcycle.make %> <%= @motorcycle.model %></h2>
+
+<%= form_for([@motorcycle, @review]) do |f| %>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :review %><br />
+    <%= f.text_area :description %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<%end%>
+
+<%= link_to "Back to #{@motorcycle.make} #{@motorcycle.model}",
+    motorcycle_path(@motorcycle) %>

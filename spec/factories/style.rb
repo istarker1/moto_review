@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :style do
-    style "Retro"
+    sequence(:style) {|n| "Retro#{n}" }
   end
 end

@@ -13,8 +13,17 @@ class ApplicationController < ActionController::Base
   #   new_moto
   # end
 
+  def user_logged_in?
+    if current_user
+      true
+    else
+      flash[:notice] = "You are not authorized to view this page"
+      redirect_to motorcycles_path
+    end
+  end
+
   helper_method :correct_user
-  def correct_user
+  def correct_user?
     if current_user.nil?
       return false
     else

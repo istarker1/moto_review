@@ -10,16 +10,13 @@ class MotorcyclesController < ApplicationController
   end
 
   def new
-    if current_user
-      @motorcycle = Motorcycle.new
-      @style = Style.all.map { |s| s.style  }
-    else
-      flash[:notice] = "You are not authorized to view this page"
-      redirect_to motorcycles_path
-    end
+    user_logged_in?
+    @motorcycle = Motorcycle.new
+    @style = Style.all.map { |s| s.style  }
   end
 
   def create
+    user_logged_in?
     @motorcycle = Motorcycle.new(motorcycle_params)
     @motorcycle.style_id = Style.where(style: params[:motorcycle][:style])[0].id
     @motorcycle.user_id = current_user.id
@@ -35,11 +32,11 @@ class MotorcyclesController < ApplicationController
 
   def edit
     @motorcycle = Motorcycle.find(params[:id])
-    if current_user != @motorcycle.creator
+    if correct_user?
+      @style = Style.all.map { |s| s.style  }
+    else
       flash[:notice] = "You are not authorized to view that page"
       redirect_to motorcycles_path
-    else
-      @style = Style.all.map { |s| s.style  }
     end
   end
 

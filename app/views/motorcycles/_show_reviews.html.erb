@@ -1,0 +1,19 @@
+<h3 id="review_head">Reviews</h3>
+<% if @motorcycle.already_reviewed?(current_user) %>
+  <%= link_to "Edit your review", edit_motorcycle_review_path(@motorcycle)%>
+<% end %>
+<ul>
+  <% @reviews.each do |r| %>
+    <li class="review">
+      <h4><%= r.title %> - by <%= r.username %></h4>
+      <p><%= r.description %></p>
+    </li>
+  <% end %>
+</ul>
+<% if current_user && !@motorcycle.already_reviewed?(current_user)%>
+  <%= link_to "Add a review", new_motorcycle_review_path(@motorcycle) %>
+<% end %>
+
+<% if !current_user %>
+  <%= link_to "Sign in to review", new_user_session_path(@motorcycle) %>
+<% end %>
