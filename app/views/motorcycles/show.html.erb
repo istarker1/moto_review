@@ -1,6 +1,6 @@
 <%= flash[:notice] %>
 
-<h3><%= @motorcycle.make%> <%=@motorcycle.model %></h3>
+<h2><%= @motorcycle.make%> <%=@motorcycle.model %></h2>
 <% if !@motorcycle.cc.nil? %>
   <h4>CC: <%= @motorcycle.cc %></h4>
 <% end %>
@@ -8,11 +8,23 @@
 
 <% if @motorcycle.creator == current_user %>
   <%= link_to "Edit Motorcycle", edit_motorcycle_path %>
-<% end %><br><br>
+<% end %><br>
 
 <% if current_user == @motorcycle.creator %>
   <%= link_to "Delete Motorcycle", motorcycle_path(@motorcycle),
       method: :delete, data: { confirm: 'Are you sure?'} %>
+<% end %><br><br />
+
+
+<% if !@reviews.empty? %>
+  <%= render 'show_reviews' %>
+<% elsif @reviews.empty? && current_user %>
+  <%= link_to "Be the first to review!", new_motorcycle_review_path(@motorcycle) %>
+<% elsif @reviews.empty? && current_user.nil? %>
+  <%= link_to "Sign in to review", new_user_session_path %>
 <% end %>
+
+
+
 
 <%= render 'index_link' %>

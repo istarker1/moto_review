@@ -22,3 +22,11 @@
  #errors {
    color: red;
  }
+
+ #review_head {
+   text-decoration: underline;
+ }
+
+.review {
+  list-style: none;
+}

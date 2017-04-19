@@ -6,6 +6,7 @@ class MotorcyclesController < ApplicationController
 
   def show
     @motorcycle = Motorcycle.find(params[:id])
+    @reviews = Review.where(motorcycle_id: @motorcycle.id)
   end
 
   def new
