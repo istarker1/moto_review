@@ -31,6 +31,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def correct_reviewer?
+    if current_user.nil?
+      return false
+    else
+      current_user.id == @review.user_id
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

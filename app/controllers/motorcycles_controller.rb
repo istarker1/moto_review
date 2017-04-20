@@ -7,6 +7,9 @@ class MotorcyclesController < ApplicationController
   def show
     @motorcycle = Motorcycle.find(params[:id])
     @reviews = Review.where(motorcycle_id: @motorcycle.id)
+    if current_user
+      @review = @reviews.where(user_id: current_user.id)[0]
+    end
   end
 
   def new
@@ -50,13 +53,13 @@ class MotorcyclesController < ApplicationController
     else
       @errors = @motorcycle.errors.full_messages
       @style = Style.all.map { |s| s.style  }
-      render action: 'new'
+      render action: 'edit'
     end
   end
 
   def destroy
     @motorcycle = Motorcycle.find(params[:id])
-    if correct_user
+    if correct_user?
       @motorcycle.destroy
       flash[:notice] = "Motorcycle Deleted"
       redirect_to motorcycles_path

@@ -23,11 +23,36 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-
+    user_logged_in?
+    @motorcycle = Motorcycle.find(params[:motorcycle_id])
+    @review = Review.where(motorcycle_id: @motorcycle.id, user_id: current_user.id)[0]
   end
 
   def update
+    user_logged_in?
+    @motorcycle = Motorcycle.find(params[:motorcycle_id])
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      flash[:notice] = "Review Updated!"
+      redirect_to @motorcycle
+    else
+      @errors = @review.errors.full_messages
+      render action: 'edit'
+    end
+  end
 
+  def destroy
+    user_logged_in?
+    @motorcycle = Motorcycle.find(params[:motorcycle_id])
+    @review = Review.where(motorcycle_id: @motorcycle.id, user_id: current_user.id)[0]
+    if correct_reviewer?
+      @review.destroy
+      flash[:notice] = "Review Deleted"
+      redirect_to @motorcycle
+    else
+      flash[:notice] = "You are not authorized"
+      redirect_to @motorcycle
+    end
   end
 
   private
