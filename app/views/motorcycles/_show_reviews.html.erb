@@ -1,17 +1,21 @@
 <h3 id="review_head">Reviews</h3>
+
 <% if @motorcycle.already_reviewed?(current_user) %>
   <%= link_to "Edit your review", edit_motorcycle_review_path(@motorcycle, @review)%>
   <%= link_to "Delete your review", motorcycle_review_path(@motorcycle, @review),
       method: :delete, data: { confirm: 'Are you sure?'} %>
 <% end %>
+
 <ul>
   <% @reviews.each do |r| %>
     <li class="review">
       <h4><%= r.title %> - by <%= r.username %></h4>
       <p><%= r.description %></p>
+      
     </li>
   <% end %>
 </ul>
+
 <% if current_user && !@motorcycle.already_reviewed?(current_user)%>
   <%= link_to "Add a review", new_motorcycle_review_path(@motorcycle) %>
 <% end %>

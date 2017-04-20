@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :questions
+  has_many :motorcycles
+  has_many :votes
 
   validates :first_name, :last_name, :username, presence: true
   validates :username, uniqueness: true
