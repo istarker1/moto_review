@@ -6,8 +6,8 @@ feature 'add a motorcycle' do
     style = FactoryGirl.create(:style)
     visit root_path
     click_link 'Sign In'
-    fill_in 'Email', with: 'jdoe@example.com'
-    fill_in 'Password', with: 'password'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     click_link 'Add a Motorcycle'
     fill_in "Make", with: "Moto Guzzi"

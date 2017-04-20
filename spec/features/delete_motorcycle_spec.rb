@@ -8,8 +8,8 @@ feature 'delete motorcycle' do
     visit root_path
     expect(page).to have_content("Moto Guzzi V7 Stone")
     click_link 'Sign In'
-    fill_in 'Email', with: 'jdoe@example.com'
-    fill_in 'Password', with: 'password'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     visit motorcycle_path(moto)
     click_link 'Delete Motorcycle'

@@ -7,8 +7,8 @@ feature 'edit a motorcycle' do
     moto = FactoryGirl.create(:motorcycle, user_id: user.id, style_id: style.id)
     visit root_path
     click_link 'Sign In'
-    fill_in 'Email', with: 'jdoe@example.com'
-    fill_in 'Password', with: 'password'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     click_link 'Moto Guzzi V7 Stone'
     click_link 'Edit Motorcycle'
