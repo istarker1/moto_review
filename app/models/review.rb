@@ -10,4 +10,22 @@ class Review < ApplicationRecord
     User.find(user_id).username
   end
 
+  def score
+    x = 0
+    votes = Vote.where(review_id: id)
+    votes.each do |v|
+      if v.vote == true
+        x += 1
+      elsif v.vote == false
+        x -= 1
+      end
+    end
+    x
+  end
+
+  def already_voted?(current_user)
+    !Vote.where(user_id: current_user.id, review_id: id).empty?
+  end
+
+
 end

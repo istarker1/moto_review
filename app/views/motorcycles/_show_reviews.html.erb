@@ -9,9 +9,14 @@
 <ul>
   <% @reviews.each do |r| %>
     <li class="review">
-      <h4><%= r.title %> - by <%= r.username %></h4>
+      <h4><%= r.title %> - by <%= r.username %> - Score: <%= r.score %></h4>
       <p><%= r.description %></p>
-      
+      <% if !r.already_voted?(current_user) %>
+        <%= link_to "+1", api_v1_votes_path(r, :vote => true, :review_id => r.id,
+          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post, class: "vote_link", remote: true %>
+        <%= link_to "-1", api_v1_votes_path(r, :vote => false, :review_id => r.id,
+          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post, class: "vote_link", remote: true  %>
+      <% end %>
     </li>
   <% end %>
 </ul>

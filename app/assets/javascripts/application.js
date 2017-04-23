@@ -13,3 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function() {
+  return $(".vote_link").on("ajax:success", function(e, data, status, xhr) {
+    return $(".review").append(xhr.responseText);
+  }).on("ajax:error", function(e, xhr, status, error) {
+    return $("#new_article").append("<p>ERROR</p>");
+  });
+});
