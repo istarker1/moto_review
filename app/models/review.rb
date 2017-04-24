@@ -24,7 +24,11 @@ class Review < ApplicationRecord
   end
 
   def already_voted?(current_user)
-    !Vote.where(user_id: current_user.id, review_id: id).empty?
+    if current_user
+      !Vote.where(user_id: current_user.id, review_id: id).empty?
+    else
+      true
+    end
   end
 
 

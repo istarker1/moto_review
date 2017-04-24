@@ -1,7 +1,13 @@
 class MotorcyclesController < ApplicationController
 
   def index
-    @motorcycles = Motorcycle.all
+    if params[:search] == nil
+      @motorcycles = Motorcycle.all
+    else
+      @motorcycles = Motorcycle.where(make: params[:search]).or(
+        Motorcycle.where(model: params[:search])).or(
+        Motorcycle.where(cc: params[:search]))
+    end
   end
 
   def show
