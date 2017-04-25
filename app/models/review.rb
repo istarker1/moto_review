@@ -27,7 +27,7 @@ class Review < ApplicationRecord
     if current_user
       !Vote.where(user_id: current_user.id, review_id: id).empty?
     else
-      true
+      "Not logged in"
     end
   end
 

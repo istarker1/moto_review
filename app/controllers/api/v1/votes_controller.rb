@@ -11,6 +11,16 @@ class Api::V1::VotesController < ApplicationController
     end
   end
 
+  def update
+    @vote = Vote.where(review_id: params[:review_id], user_id: params[:user_id])[0]
+    @review = Review.find(params[:review_id])
+    @vote.vote = params[:vote]
+    if @review.already_voted?(current_user) && @vote.save
+      flash[:notice] = "Vote Updated!"
+      render json: @review, status: :created, location: api_v1_votes_path(@vote)
+    end
+  end
+
   private
 
   def vote_params

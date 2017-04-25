@@ -22,9 +22,13 @@ let show_link = (link) => {
   $(link).show();
 };
 
+let to_edit = (link) => {
+  $(link).attribute
+};
+
 $(document).ready(function() {
   return $(".vote_link_up").on("ajax:success", function(e, data, status, xhr) {
-    alert("header_" + data.id);
+    alert("Thanks for your vote! (+1)");
     var current_score = parseInt($("#score_" + data.id).text());
     var new_score = current_score + 1;
     hide_link("#vote_up_" + data.id);
@@ -32,13 +36,13 @@ $(document).ready(function() {
     return $("#score_" + data.id).text(new_score);
 
   }).on("ajax:error", function(e, xhr, status, error) {
-    return $("#new_article").append("<p>ERROR</p>");
+    return $("#score_" + data.id).append("<p>ERROR</p>");
   });
 });
 
 $(document).ready(function() {
   return $(".vote_link_down").on("ajax:success", function(e, data, status, xhr) {
-    alert("header_" + data.id);
+    alert("Thanks for your vote! (-1)");
     var current_score = parseInt($("#score_" + data.id).text());
     var new_score = current_score - 1;
     show_link("#vote_up_" + data.id);

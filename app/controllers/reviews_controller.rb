@@ -45,8 +45,12 @@ class ReviewsController < ApplicationController
     user_logged_in?
     @motorcycle = Motorcycle.find(params[:motorcycle_id])
     @review = Review.where(motorcycle_id: @motorcycle.id, user_id: current_user.id)[0]
+    @votes = Vote.where(review_id: @review.id)
     if correct_reviewer?
       @review.destroy
+      @votes.length.times do
+        @votes.last.delete
+      end
       flash[:notice] = "Review Deleted"
       redirect_to @motorcycle
     else
