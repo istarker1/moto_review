@@ -12,20 +12,22 @@
       <h4><%= r.title %> - by <%= r.username %> - Score:
         <span id="score_<%= r.id %>"><%= r.score %><span></h4>
       <p><%= r.description %></p>
-      <% if !r.already_voted?(current_user) %> <!-- Hasn't Voted Yet -->
-        <%= link_to "+1", api_v1_votes_path(r, :vote => true, :review_id => r.id,
-          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post,
-           class: "vote_link_up", id: "vote_up_#{r.id}", remote: true %>
-        <%= link_to "-1", api_v1_votes_path(r, :vote => false, :review_id => r.id,
-          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post,
-           class: "vote_link_down", id: "vote_down_#{r.id}", remote: true  %>
-      <% elsif r.already_voted?(current_user) %> <!-- Already Voted -->
-        <%= link_to "+1", api_v1_vote_path(r, :vote => true, :review_id => r.id,
-          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :put,
-           class: "vote_link_up", id: "update_vote_up_#{r.id}" %> <!-- remote true -->
-        <%= link_to "-1", api_v1_vote_path(r, :vote => false, :review_id => r.id,
-          :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :put,
-           class: "vote_link_down", id: "update_down_#{r.id}" %>
+      <% if r.already_voted?(current_user) != "Not logged in" %>
+        <% if !r.already_voted?(current_user) %> <!-- Hasn't Voted Yet -->
+          <%= link_to "+1", api_v1_votes_path(r, :vote => true, :review_id => r.id,
+            :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post,
+             class: "vote_link_up", id: "vote_up_#{r.id}", remote: true %>
+          <%= link_to "-1", api_v1_votes_path(r, :vote => false, :review_id => r.id,
+            :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :post,
+             class: "vote_link_down", id: "vote_down_#{r.id}", remote: true  %>
+        <% elsif r.already_voted?(current_user) %> <!-- Already Voted -->
+          <%= link_to "+1", api_v1_vote_path(r, :vote => true, :review_id => r.id,
+            :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :put,
+             class: "vote_link_up", id: "update_vote_up_#{r.id}" %> <!-- remote true -->
+          <%= link_to "-1", api_v1_vote_path(r, :vote => false, :review_id => r.id,
+            :user_id => current_user.id, :motorcycle => @motorcycle.id), method: :put,
+             class: "vote_link_down", id: "update_down_#{r.id}" %>
+        <% end %>
       <% end %>
     </li>
   <% end %>

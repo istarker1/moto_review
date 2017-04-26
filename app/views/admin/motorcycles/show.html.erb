@@ -1,0 +1,25 @@
+<%= flash[:notice] %>
+
+<h2>(ADMIN)</h2>
+
+<h2><%= @motorcycle.make%> <%=@motorcycle.model %></h2>
+<% if !@motorcycle.cc.nil? %>
+  <h4>CC: <%= @motorcycle.cc %></h4>
+<% end %>
+<h4>Style: <%= @motorcycle.type %></h4>
+
+<%= link_to "Delete Motorcycle", admin_motorcycle_path(@motorcycle),
+    method: :delete, data: { confirm: 'Are you sure?'} %>
+
+
+<h3>Reviews</h3>
+<ul>
+  <% @reviews.each do |r| %>
+    <li>
+      <h4><%= r.title %> - by <%= r.username %> - Score: <%= r.score %></h4>
+      <p><%= r.description %></p>
+      <%= link_to "Delete review", admin_motorcycle_review_path(@motorcycle, r),
+          method: :delete, data: { confirm: 'Are you sure?'} %>
+    </li>
+  <% end %>
+</ul>

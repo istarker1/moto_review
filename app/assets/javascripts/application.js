@@ -22,9 +22,9 @@ let show_link = (link) => {
   $(link).show();
 };
 
-let to_edit = (link) => {
-  $(link).attribute
-};
+// let to_edit = (link) => {
+//   $(link).attribute
+// };
 
 $(document).ready(function() {
   return $(".vote_link_up").on("ajax:success", function(e, data, status, xhr) {
