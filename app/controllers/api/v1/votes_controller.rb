@@ -18,6 +18,9 @@ class Api::V1::VotesController < ApplicationController
     if @review.already_voted?(current_user) && @vote.save
       flash[:notice] = "Vote Updated!"
       render json: @review, status: :created, location: api_v1_votes_path(@vote)
+    if !@review.already_voted?(current_user) && @vote.save
+      flash[:notice] = "Vote Recorded!"
+      render json: :nothing, status: :created, location: @motorcycle
     end
   end
 
