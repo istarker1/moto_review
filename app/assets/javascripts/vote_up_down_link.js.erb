@@ -1,0 +1,41 @@
+// 
+// let set_link = (link) => {
+//   $(link).css("color", "red");
+//   $(link).css("font-weight", "bold");
+// };
+//
+// let to_edit_down = (link) => {
+//   var r = "Hi"
+//   $(link).attr("data-method", "put");
+//
+// };
+//
+// $(document).ready(function() {
+//   return $(".vote_link_up").on("ajax:success", function(e, data, status, xhr) {
+//     alert("Thanks for your vote! (+1)");
+//     debugger;
+//     var current_score = parseInt($("#score_" + data.id).text());
+//     var new_score = current_score + 1;
+//     set_link("#vote_up_" + data.id);
+//
+//     to_edit_down("#vote_down_" + data.id);
+//     return $("#score_" + data.id).text(new_score);
+//
+//   }).on("ajax:error", function(e, xhr, status, error) {
+//     return $("#score_" + data.id).append("<p>ERROR</p>");
+//   });
+// });
+//
+// $(document).ready(function() {
+//   return $(".vote_link_down").on("ajax:success", function(e, data, status, xhr) {
+//     alert("Thanks for your vote! (-1)");
+//     var current_score = parseInt($("#score_" + data.id).text());
+//     var new_score = current_score - 1;
+//     to_edit("#vote_up_" + data.id);
+//     set_link("#vote_down_" + data.id);
+//     return $("#score_" + data.id).text(new_score);
+//
+//   }).on("ajax:error", function(e, xhr, status, error) {
+//     return $("#new_article").append("<p>ERROR</p>");
+//   });
+// });

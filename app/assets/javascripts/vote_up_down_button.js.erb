@@ -1,0 +1,37 @@
+let check_button = (button) => {
+  $(button).css("color", "red");
+};
+
+let uncheck_button = (button) => {
+  $(button).css("color", "black");
+};
+
+let update_link = (form, data) => {
+  $(form).attr("method", "put")
+  $(form).attr("action", `/api/v1/votes/1?review_id=${data.review.id}&amp;user_id=${data.vote.user_id}`)
+}
+
+
+$(document).ready(function() {
+  return $(".vote_form").on("ajax:success", function(e, data, status, xhr) {
+    alert("BUTTON PRESSED: Thanks for your vote!");
+    var new_score = data.score
+
+    update_link(`#vote_form_${data.review.id}`, data)
+
+    if (data.vote.vote > 0) {
+      check_button(`#vote__button_up_${data.review.id}`);
+      uncheck_button(`#vote__button_down_${data.review.id}`);
+    } else {
+      check_button(`#vote__button_down_${data.review.id}`);
+      uncheck_button(`#vote__button_up_${data.review.id}`);
+    }
+    return $(`#score_${data.review.id}`).text(new_score);
+
+  }).on("ajax:error", function(e, xhr, status, error) {
+    // return $("#score_" + data.id).append("<p>ERROR</p>");
+  });
+});
+
+
+// "/api/v1/votes.1?review_id=1&user_id=4"

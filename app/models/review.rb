@@ -14,18 +14,18 @@ class Review < ApplicationRecord
     x = 0
     votes = Vote.where(review_id: id)
     votes.each do |v|
-      if v.vote == true
-        x += 1
-      elsif v.vote == false
-        x -= 1
-      end
+      x += v.vote
     end
     x
   end
 
   def already_voted?(current_user)
     if current_user
-      !Vote.where(user_id: current_user.id, review_id: id).empty?
+      if Vote.where(user_id: current_user.id, review_id: id).empty?
+        return false
+      else
+        return Vote.where(user_id: current_user.id, review_id: id)[0].vote
+      end
     else
       "Not logged in"
     end

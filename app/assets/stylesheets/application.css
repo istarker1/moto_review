@@ -30,3 +30,11 @@
 .review {
   list-style: none;
 }
+
+.voted_button_up {
+  color: red;
+}
+
+.voted_button_down {
+  color: red;
+}
