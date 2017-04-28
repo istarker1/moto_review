@@ -7,8 +7,18 @@ let uncheck_button = (button) => {
 };
 
 let update_link = (form, data) => {
-  $(form).attr("method", "put")
-  $(form).attr("action", `/api/v1/votes/1?review_id=${data.review.id}&amp;user_id=${data.vote.user_id}`)
+  if (data.type == "delete") {
+    $(form).attr("method", "post")
+    $(form).attr("action", `/api/v1/votes.${data.review}?review_id=${data.review}&amp;user_id=${data.user}`)
+    $(`#vote_form_${data.review} input[name='_method']`).remove()
+  } else {
+    $(form).attr("method", "put")
+    $(form).attr("action", `/api/v1/votes/1?review_id=${data.review}&amp;user_id=${data.vote.user_id}`)
+  }
+}
+
+let add_delete_button = (form, data) => {
+  $(form).append(`<input type='submit' name='commit' value='Delete Vote' class='delete_vote' id='delete_vote${data.review}' method='delete' remote='true' data-disable-with='Delete Vote'>`)
 }
 
 
@@ -17,21 +27,20 @@ $(document).ready(function() {
     alert("BUTTON PRESSED: Thanks for your vote!");
     var new_score = data.score
 
-    update_link(`#vote_form_${data.review.id}`, data)
-
-    if (data.vote.vote > 0) {
-      check_button(`#vote__button_up_${data.review.id}`);
-      uncheck_button(`#vote__button_down_${data.review.id}`);
+    update_link(`#vote_form_${data.review}`, data)
+    if (data.type == "delete") {
+      uncheck_button(`#vote_button_down_${data.review}`);
+      uncheck_button(`#vote_button_up_${data.review}`);
+    } else if (data.vote.vote > 0) {
+      check_button(`#vote_button_up_${data.review}`);
+      uncheck_button(`#vote_button_down_${data.review}`);
     } else {
-      check_button(`#vote__button_down_${data.review.id}`);
-      uncheck_button(`#vote__button_up_${data.review.id}`);
+      check_button(`#vote_button_down_${data.review}`);
+      uncheck_button(`#vote_button_up_${data.review}`);
     }
-    return $(`#score_${data.review.id}`).text(new_score);
+    return $(`#score_${data.review}`).text(new_score);
 
   }).on("ajax:error", function(e, xhr, status, error) {
     // return $("#score_" + data.id).append("<p>ERROR</p>");
   });
 });
-
-
-// "/api/v1/votes.1?review_id=1&user_id=4"

@@ -24,7 +24,14 @@ class Review < ApplicationRecord
       if Vote.where(user_id: current_user.id, review_id: id).empty?
         return false
       else
-        return Vote.where(user_id: current_user.id, review_id: id)[0].vote
+        vote = Vote.where(user_id: current_user.id, review_id: id)[0].vote
+          if vote == 1
+            return "+1"
+          elsif vote == -1
+            return "-1"
+          else
+            return false
+          end
       end
     else
       "Not logged in"

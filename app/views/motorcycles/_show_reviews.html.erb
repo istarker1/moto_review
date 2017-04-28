@@ -13,30 +13,36 @@
         <span id="score_<%= r.id %>"><%= r.score %><span></h4>
       <p><%= r.description %></p>
 
-      <% if r.already_voted?(current_user) == false %>
+      <% if r.already_voted?(current_user) == false || r.already_voted?(current_user) == 0%>
         <%= form_for @vote, remote: true, :html => { :id => "vote_form_#{r.id}",
             :class => "vote_form" }, url: api_v1_votes_path(r,
             :review_id => r.id, :user_id => current_user.id) do |f| %>
-          <%= f.submit "+1", class: "vote_button_up", id: "vote__button_up_#{r.id}", remote: true%>
-          <%= f.submit "-1", class: "vote_button_down", id: "vote__button_down_#{r.id}", remote: true%>
+          <%= f.submit "+1", class: "vote_button_up", id: "vote_button_up_#{r.id}",
+            remote: true%>
+          <%= f.submit "-1", class: "vote_button_down", id: "vote_button_down_#{r.id}",
+            remote: true%>
         <%end%>
 
-    <%elsif r.already_voted?(current_user) == 1%>
+    <% elsif r.already_voted?(current_user) == "+1"%>
       <%= form_for @vote, remote: true, :html => { :id => "vote_form_#{r.id}",
           :class => "vote_form" }, method: :put, url: api_v1_vote_path(r,
           :review_id => r.id, :user_id => current_user.id) do |f| %>
-        <%= f.submit "+1", class: "voted_button_up", id: "vote__button_up_#{r.id}", remote: true%>
-        <%= f.submit "-1", class: "vote_button_down", id: "vote__button_down_#{r.id}", remote: true%>
+        <%= f.submit "+1", class: "voted_button_up", id: "vote_button_up_#{r.id}",
+          remote: true%>
+        <%= f.submit "-1", class: "vote_button_down", id: "vote_button_down_#{r.id}",
+          remote: true%>
       <% end %>
 
-    <%elsif r.already_voted?(current_user) == -1%>
+    <% elsif r.already_voted?(current_user) == "-1"%>
       <%= form_for @vote, remote: true, :html => { :id => "vote_form_#{r.id}",
           :class => "vote_form" }, method: :put, url: api_v1_vote_path(r,
           :review_id => r.id, :user_id => current_user.id) do |f| %>
-        <%= f.submit "+1", class: "vote_button_up", id: "vote__button_up_#{r.id}", remote: true%>
-        <%= f.submit "-1", class: "voted_button_down", id: "vote__button_down_#{r.id}", remote: true%>
+        <%= f.submit "+1", class: "vote_button_up", id: "vote_button_up_#{r.id}",
+          remote: true%>
+        <%= f.submit "-1", class: "voted_button_down", id: "vote_button_down_#{r.id}",
+          remote: true%>
       <% end %>
-      
+
     <% end %>
     </li>
   <% end %>
