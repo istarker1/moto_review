@@ -23,6 +23,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem 'teaspoon'
+  gem 'teaspoon-jasmine'
+  gem 'coffee-rails'
+  gem 'phantomjs'
 end
 
 group :production do
