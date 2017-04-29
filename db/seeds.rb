@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+styles = [
+  "Retro",
+  "Supersport",
+  "Sport",
+  "Standard",
+  "Cruiser",
+  "Adventure",
+  "Scooter",
+  "Dual Sport",
+  "Touring",
+  "Sport Touring",
+  "Off-Road",
+].sort!
+
+styles.each do |s|
+  Style.create(style: s)
+end
