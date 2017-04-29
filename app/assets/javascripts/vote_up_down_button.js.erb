@@ -24,7 +24,7 @@ var add_delete_button = (form, data) => {
 
 $(document).ready(function() {
   return $(".vote_form").on("ajax:success", function(e, data, status, xhr) {
-    alert("BUTTON PRESSED: Thanks for your vote!");
+    // alert("BUTTON PRESSED: Thanks for your vote!");
     var new_score = data.score
 
     update_link(`#vote_form_${data.review}`, data)
