@@ -1,12 +1,12 @@
-let check_button = (button) => {
+var check_button = (button) => {
   $(button).css("color", "red");
 };
 
-let uncheck_button = (button) => {
+var uncheck_button = (button) => {
   $(button).css("color", "black");
 };
 
-let update_link = (form, data) => {
+var update_link = (form, data) => {
   if (data.type == "delete") {
     $(form).attr("method", "post")
     $(form).attr("action", `/api/v1/votes.${data.review}?review_id=${data.review}&amp;user_id=${data.user}`)
@@ -17,7 +17,7 @@ let update_link = (form, data) => {
   }
 }
 
-let add_delete_button = (form, data) => {
+var add_delete_button = (form, data) => {
   $(form).append(`<input type='submit' name='commit' value='Delete Vote' class='delete_vote' id='delete_vote${data.review}' method='delete' remote='true' data-disable-with='Delete Vote'>`)
 }
 
